@@ -27,10 +27,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFSimpleShape;
 import org.apache.poi.xssf.usermodel.XSSFTextBox;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbookType;
 import org.openqa.selenium.WebDriver;
 
 public class Check {
-	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\chao.xlsx";
+	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\chao1.xlsx";
 	private final int rowOffsetFirst = 1;
 	private final int numberOfRowEachTextBox = 2;
 	private final int rowSpace = 1;
@@ -40,7 +41,7 @@ public class Check {
 	
 
 	FileInputStream excelFile;
-	XSSFWorkbook workbook;
+	XSSFWorkbook workbook = new XSSFWorkbook(XSSFWorkbookType.XLSX);
 	XSSFSheet datatypeSheet;
 
 	public static void main(String[] args) throws IOException {
@@ -49,13 +50,16 @@ public class Check {
 	}
 
 	private void check() throws IOException {
+		System.out.println("Running.....");
 		System.setProperty("webdriver.chrome.driver", "E:\\Lib\\chromedriver.exe");
 		System.setProperty("webdriver.gecko.driver", "E:\\Lib\\geckodriver.exe");
 		WebDriver driver;
 
-		excelFile = new FileInputStream(new File(FILE_NAME));
-		workbook = new XSSFWorkbook(excelFile);
-		datatypeSheet = workbook.getSheetAt(0);
+//		excelFile = new FileInputStream(new File(FILE_NAME));
+//		workbook = new XSSFWorkbook(excelFile);
+//		datatypeSheet = workbook.getSheetAt(0);
+		datatypeSheet = workbook.createSheet("xin chao");
+		datatypeSheet.setDefaultColumnWidth(3);
 		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch();
 		for (int i = 0; i < 10; i++) {
 			
@@ -90,6 +94,7 @@ public class Check {
 		FileOutputStream output_file = new FileOutputStream(new File(FILE_NAME));
 		workbook.write(output_file);
 		output_file.close();
+		System.out.println("Finished!!!");
 
 	}
 
