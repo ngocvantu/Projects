@@ -31,7 +31,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbookType;
 import org.openqa.selenium.WebDriver;
 
 public class Check {
-	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\chao1.xlsx";
+	private static final String FILE_NAME = "E:\\GITHUB\\chao1.xlsx";
 	private final int rowOffsetFirst = 1;
 	private final int numberOfRowEachTextBox = 2;
 	private final int rowSpace = 1;
@@ -49,10 +49,7 @@ public class Check {
 	}
 
 	private void check() throws IOException {
-		System.out.println("Running.....");
-		System.setProperty("webdriver.chrome.driver", "E:\\Lib\\chromedriver.exe");
-		System.setProperty("webdriver.gecko.driver", "E:\\Lib\\geckodriver.exe");
-		WebDriver driver;
+		System.out.println("Running....."); 
 
 //		excelFile = new FileInputStream(new File(FILE_NAME));
 //		workbook = new XSSFWorkbook(excelFile);
