@@ -37,8 +37,7 @@ public class Check {
 	private final int rowSpace = 1;
 	
 	private int colStart = 2;
-	private int colEnd = 16;
-	
+	private int colEnd = 16; 
 
 	FileInputStream excelFile;
 	XSSFWorkbook workbook = new XSSFWorkbook(XSSFWorkbookType.XLSX);
