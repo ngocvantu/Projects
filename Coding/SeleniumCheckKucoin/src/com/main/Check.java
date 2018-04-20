@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFShape;
@@ -21,6 +22,7 @@ import org.apache.poi.xslf.usermodel.XSLFDrawing;
 import org.apache.poi.xslf.usermodel.XSLFTextBox;
 import org.apache.poi.xssf.usermodel.TextAutofit;
 import org.apache.poi.xssf.usermodel.TextVerticalOverflow;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -51,10 +53,10 @@ public class Check {
 	private void check() throws IOException {
 		System.out.println("Running....."); 
 
-//		excelFile = new FileInputStream(new File(FILE_NAME));
-//		workbook = new XSSFWorkbook(excelFile);
-//		datatypeSheet = workbook.getSheetAt(0);
-		datatypeSheet = workbook.createSheet("xin chao");
+		excelFile = new FileInputStream(new File(FILE_NAME));
+		workbook = new XSSFWorkbook(excelFile);
+		datatypeSheet = workbook.getSheetAt(0);
+//		datatypeSheet = workbook.createSheet("xin chao");
 		datatypeSheet.setDefaultColumnWidth(3);
 		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch();
 		for (int i = 0; i < 10; i++) {
@@ -86,6 +88,18 @@ public class Check {
 		simpleShape2.setLineStyleColor(0, 0, 0);
 		simpleShape2.setLineWidth(1.5);
 		simpleShape2.setFillColor(0, 0, 0);
+		
+		for (int i = 0; i < 5; i++) {
+			workbook.cloneSheet(1, "KSC-S-25_2 メソッド（関数）仕様(" + (i+2) + "枚目)");
+			XSSFSheet sheetI = workbook.getSheetAt(i + 2);
+			Cell cellPersonIncharge = sheetI.getRow(0).getCell(15);
+			System.out.println(cellPersonIncharge.getStringCellValue());
+			cellPersonIncharge.setCellValue("(TSDV)HungPN");
+			Cell cellPakage = sheetI.getRow(1).getCell(8);
+			cellPakage.setCellValue("jp.co.toshiba_sol.slim.ks.substituteinput");
+			Cell cellDate = sheetI.getRow(0).getCell(13);
+			cellDate.setCellValue(new Date());
+		}
 
 		FileOutputStream output_file = new FileOutputStream(new File(FILE_NAME));
 		workbook.write(output_file);
