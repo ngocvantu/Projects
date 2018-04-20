@@ -59,39 +59,41 @@ public class Check {
 //		datatypeSheet = workbook.createSheet("xin chao");
 		datatypeSheet.setDefaultColumnWidth(3);
 		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch();
-		for (int i = 0; i < 10; i++) {
-			
-			XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0, 0, 0, 0, colStart,
-					rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
-			textBox1.setText(i + 
-					". Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd  asdl;j falsdf alsdjk faslkjdf f");
-			textBox1.setLineStyle(0);
-			textBox1.setLineStyleColor(0, 0, 0);
-			textBox1.setLineWidth(1.5);
-			textBox1.setFillColor(255, 255, 255);
-			textBox1.setWordWrap(true);
-			textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
-			textBox1.setBottomInset(0); // bottom margin (similar padding in HTMLL)
-			textBox1.setTopInset(0);
-		} 
-		
-		XSSFSimpleShape simpleShape = drawing.createSimpleShape(new XSSFClientAnchor(3, 3, 3, 3, 4, 11, 6, 13));
-		simpleShape.setShapeType(ShapeTypes.DIAMOND);
-		simpleShape.setLineStyle(0);
-		simpleShape.setLineStyleColor(0, 0, 0);
-		simpleShape.setLineWidth(1.5);
-//		simpleShape.setFillColor(0, 0, 0);
-
-		XSSFSimpleShape simpleShape2 = drawing.createSimpleShape(new XSSFClientAnchor(3, 3, 3, 3, 5, 3, 5, 4));
-		simpleShape2.setShapeType(ShapeTypes.LINE);
-		simpleShape2.setLineStyle(0);
-		simpleShape2.setLineStyleColor(0, 0, 0);
-		simpleShape2.setLineWidth(1.5);
-		simpleShape2.setFillColor(0, 0, 0);
+//		for (int i = 0; i < 10; i++) {
+//			
+//			XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0, 0, 0, 0, colStart,
+//					rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
+//			textBox1.setText(i + 
+//					". Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd  asdl;j falsdf alsdjk faslkjdf f");
+//			textBox1.setLineStyle(0);
+//			textBox1.setLineStyleColor(0, 0, 0);
+//			textBox1.setLineWidth(1.5);
+//			textBox1.setFillColor(255, 255, 255);
+//			textBox1.setWordWrap(true);
+//			textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
+//			textBox1.setBottomInset(0); // bottom margin (similar padding in HTMLL)
+//			textBox1.setTopInset(0);
+//		} 
+//		
+//		XSSFSimpleShape simpleShape = drawing.createSimpleShape(new XSSFClientAnchor(3, 3, 3, 3, 4, 11, 6, 13));
+//		simpleShape.setShapeType(ShapeTypes.DIAMOND);
+//		simpleShape.setLineStyle(0);
+//		simpleShape.setLineStyleColor(0, 0, 0);
+//		simpleShape.setLineWidth(1.5);
+////		simpleShape.setFillColor(0, 0, 0);
+//
+//		XSSFSimpleShape simpleShape2 = drawing.createSimpleShape(new XSSFClientAnchor(3, 3, 3, 3, 5, 3, 5, 4));
+//		simpleShape2.setShapeType(ShapeTypes.LINE);
+//		simpleShape2.setLineStyle(0);
+//		simpleShape2.setLineStyleColor(0, 0, 0);
+//		simpleShape2.setLineWidth(1.5);
+//		simpleShape2.setFillColor(0, 0, 0);
 		
 		for (int i = 0; i < 5; i++) {
-			workbook.cloneSheet(1, "KSC-S-25_2 メソッド（関数）仕様(" + (i+2) + "枚目)");
-			XSSFSheet sheetI = workbook.getSheetAt(i + 2);
+			workbook.cloneSheet(0, "KSC-S-25_2 メソッド（関数）仕様(" + (i+2) + "枚目)");
+			
+			workbook.setSheetOrder("KSC-S-25_2 メソッド（関数）仕様(" + (i+2) + "枚目)", i+1);
+			XSSFSheet sheetI = workbook.getSheetAt(i);
 			Cell cellPersonIncharge = sheetI.getRow(0).getCell(15);
 			System.out.println(cellPersonIncharge.getStringCellValue());
 			cellPersonIncharge.setCellValue("(TSDV)HungPN");
