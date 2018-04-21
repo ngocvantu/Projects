@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.gargoylesoftware.htmlunit.WebWindowListener;
+
 public class MainClass {
 	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok.xlsx";
 //	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok-form.xlsx";
@@ -51,8 +54,8 @@ public class MainClass {
 	// data in cell file
 	private static final String COLUMN_DATA = "D";
 	private static final String COLUMN_STATUS = "D";
-	private static final int ROWSTART = 1;
-	private static final int ROWEND = 94;
+	private static final int ROWSTART = 110;
+	private static final int ROWEND = 210;
 
 	// ACtion (retweet, follow kucoin)
 	private static final String ACTION = "RETWEET";
@@ -124,6 +127,23 @@ public class MainClass {
 					
 					Cell cellemail = datatypeSheet.getRow(i).getCell(2);
 					String email = cellemail.getStringCellValue().trim();
+					WebDriverWait wait = new WebDriverWait(driver, 60);
+					driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfeWHLEcQ5Q1VGXUzK-00oXQX4zu_uBnNKVyxAebfRr_OCX1w/viewform");
+					
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]/content/span")));
+					WebElement googleLoginButton  = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]/content/span"));
+					googleLoginButton.click();
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"identifierId\"]")));
+					WebElement inputEmail = driver.findElement(By.xpath("//*[@id=\"identifierId\"]"));
+					 inputEmail.sendKeys("meohoang13.sinhvien@gmail.com");
+					 WebElement nextEmail = driver.findElement(By.xpath("//*[@id=\"identifierNext\"]/content/span"));
+					 nextEmail.click();
+					 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input")));
+					 WebElement inputpass = driver.findElement(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input"));
+					 inputpass.sendKeys("Thongtinaz@12");
+					 WebElement nextPass = driver.findElement(By.xpath("//*[@id=\"passwordNext\"]/content/span"));
+					 nextPass.click();
+					 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"mG61Hd\"]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/input")));
 					fillFormKucoin(userString, driver, i, twitterusername, email);
 					break;
 				case "GETNAME":
@@ -321,9 +341,15 @@ public class MainClass {
 			System.out.println("twittername: " + twittername);
 			System.out.println("email: " + email);
 			System.out.println("image: " + "D:/Temp/BTC/Retweet1/" +  userString + ".png");
-			
-		driver.get("http://kucoinform.mikecrm.com/abtpHm9");
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+		 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"mG61Hd\"]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/input")));
+		 
+			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+			driver.switchTo().window(tabs.get(0));
+			//To navigate to new link/URL in 2nd new tab
+			driver.get("http://facebook.com");
+			Thread.sleep(10000);
+		
 		wait.until(ExpectedConditions
 				.elementToBeClickable(By.xpath("//*[@id=\"form_submit\"]")));
 		WebElement yourname = driver
@@ -482,7 +508,15 @@ public class MainClass {
 			username.sendKeys(usernamestring);
 			Thread.sleep(1000);
 			pass.clear();
-			pass.sendKeys(MAT_KHAU);
+			if ("btckhongphaila1".equals(usernamestring) || 
+					"tatcadaunha1".equals(usernamestring) || 
+					"nenphaicogang1".equals(usernamestring) ||
+					"hochanhvask1".equals(usernamestring)) {
+				pass.sendKeys("thongtin27592");
+			} else {
+				pass.sendKeys(MAT_KHAU);
+			}
+			
 			Thread.sleep(1000);
 			WebElement btnLogin = driver
 					.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[1]/form/div[2]/button"));

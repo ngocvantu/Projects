@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFShape;
@@ -31,7 +33,35 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbookType;
 import org.openqa.selenium.WebDriver;
 
 public class Check {
-	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\chao1.xlsx";
+	Properties prop = new Properties();
+	InputStream input = null;
+	
+	{
+		
+		try {
+
+			input = new FileInputStream("config.properties");
+
+			prop.load(input);
+
+			System.out.println(prop.getProperty("fileName"));
+			System.out.println(prop.getProperty("pic"));
+			System.out.println(prop.getProperty("package"));
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private   final String FILE_NAME = prop.getProperty("fileName");
 	private final int rowOffsetFirst = 1;
 	private final int numberOfRowEachTextBox = 2;
 	private final int rowSpace = 1;
