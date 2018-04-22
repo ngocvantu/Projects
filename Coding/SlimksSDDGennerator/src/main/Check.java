@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -160,6 +161,7 @@ public class Check {
 	}
 
 	private void functionDescription(String path, File[] listFile) { 
+		ArrayList<String> functionList = new ArrayList<>();
 		try {
 		for (int i = 0; i < listFile.length; i++) {
 			String fileName = listFile[i].getName();
@@ -170,15 +172,18 @@ public class Check {
 			
 			String line;
 			while ((line = bufferedReader.readLine()) != null) { 
-				if (line.trim().startsWith("function")) {
-					System.out.println(line);
-				}
+//				if (line.trim().startsWith("function")) {
+//					System.out.println(line);
+//				}
 				
-				if (!listFile[i].getName().endsWith("DTO.java") &&!listFile[i].getName().endsWith("DS.java") 
+				if (line.trim().startsWith("function") || (!listFile[i].getName().endsWith("DTO.java") && !listFile[i].getName().endsWith("DS.java") 
 						&& !listFile[i].getName().endsWith("AF.java") 
 						&& (line.trim().startsWith("private") || line.trim().startsWith("public")
-						|| line.trim().startsWith("protected")) && line.contains("(")) {
-					System.out.println(line);
+						|| line.trim().startsWith("protected")) && line.contains("("))) {
+					String lineSplitedArr[] = line.split("\\(");
+					String lineSplited[] =  lineSplitedArr[0].split(" ");
+					String functionName = lineSplited[lineSplited.length-1];
+					System.out.println("function " + (i+1) + ": " + functionName);
 				}
 			}
 			
