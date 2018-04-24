@@ -56,8 +56,8 @@ public class Check {
 			System.out.println(prop.getProperty("pic"));
 			System.out.println(prop.getProperty("package"));
 
-			FileUtils.copyFile(new File(prop.getProperty("fileName")),
-					new File("generated_" + prop.getProperty("fileName")));
+//			FileUtils.copyFile(new File(prop.getProperty("fileName")),
+//					new File("generated_" + prop.getProperty("fileName")));
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -72,7 +72,7 @@ public class Check {
 		}
 	}
 
-	private final String FILE_NAME = "generated_" + prop.getProperty("fileName");
+	private final String FILE_NAME = prop.getProperty("fileName");
 	private final int rowOffsetFirst = 1;
 	private final int numberOfRowEachTextBox = 2;
 	private final int rowSpace = 1;
@@ -172,7 +172,7 @@ public class Check {
 	}
 
 	private void methodLogicDiagramAndDetail(ArrayList<String> listFunction) {
-		ArrayList<XSSFSheet> clonedSheets = new ArrayList<>();
+		ArrayList<XSSFSheet> clonedSheets = new ArrayList();
 		for (int i = 0; i < listFunction.size(); i++) {
 			XSSFSheet cloned = workbook.cloneSheet(1 + listFunction.size() + 1,
 					prop.getProperty("screenID") + "_3メソッドロジック図(" + (i + 1) + "枚目)");
@@ -204,8 +204,8 @@ public class Check {
 	}
 
 	private void functionDescription(String path, File[] listFile) {
-		ArrayList<String> newFunctionList = new ArrayList<>();
-		ArrayList<String> functionList = new ArrayList<>();
+		ArrayList<String> newFunctionList = new ArrayList();
+		ArrayList<String> functionList = new ArrayList();
 		try {
 			for (int i = 0; i < listFile.length; i++) {
 				String fileName = listFile[i].getName();
@@ -262,7 +262,7 @@ public class Check {
 			clonedSheet.getRow(0).getCell(15).setCellValue(prop.getProperty("pic"));
 			clonedSheet.getRow(0).getCell(13).setCellType(CellType.STRING);
 			clonedSheet.getRow(0).getCell(13).setCellValue(prop.getProperty("date"));
-			String packageString = prop.getProperty("package").split("src")[1];
+			String packageString = prop.getProperty("package").split(prop.getProperty("JavaSource"))[1];
 			packageString = packageString.replaceAll("\\\\", "\\.");
 			packageString = packageString.substring(1, packageString.length());
 			// package name
