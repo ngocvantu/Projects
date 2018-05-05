@@ -97,58 +97,7 @@ public class Check {
 		datatypeSheet = workbook.getSheetAt(0);
 		// datatypeSheet = workbook.createSheet("xin chao");
 		// datatypeSheet.setDefaultColumnWidth(3);
-		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch();
-		// for (int i = 0; i < 10; i++) {
-		//
-		// XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0,
-		// 0, 0, 0, colStart,
-		// rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd,
-		// rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
-		// textBox1.setText(i +
-		// ". Create text box and insert to the , createalk asldjkfh alsjkdfh
-		// alksjd asdl;j falsdf alsdjk faslkjdf f");
-		// textBox1.setLineStyle(0);
-		// textBox1.setLineStyleColor(0, 0, 0);
-		// textBox1.setLineWidth(1.5);
-		// textBox1.setFillColor(255, 255, 255);
-		// textBox1.setWordWrap(true);
-		// textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
-		// textBox1.setBottomInset(0); // bottom margin (similar padding in
-		// HTMLL)
-		// textBox1.setTopInset(0);
-		// }
-		//
-		// XSSFSimpleShape simpleShape = drawing.createSimpleShape(new
-		// XSSFClientAnchor(3, 3, 3, 3, 4, 11, 6, 13));
-		// simpleShape.setShapeType(ShapeTypes.DIAMOND);
-		// simpleShape.setLineStyle(0);
-		// simpleShape.setLineStyleColor(0, 0, 0);
-		// simpleShape.setLineWidth(1.5);
-		//// simpleShape.setFillColor(0, 0, 0);
-		//
-		// XSSFSimpleShape simpleShape2 = drawing.createSimpleShape(new
-		// XSSFClientAnchor(3, 3, 3, 3, 5, 3, 5, 4));
-		// simpleShape2.setShapeType(ShapeTypes.LINE);
-		// simpleShape2.setLineStyle(0);
-		// simpleShape2.setLineStyleColor(0, 0, 0);
-		// simpleShape2.setLineWidth(1.5);
-		// simpleShape2.setFillColor(0, 0, 0);
-
-		// for (int i = 0; i < 5; i++) {
-		// workbook.cloneSheet(0, "KSC-S-25_2 ï¾†æŠµï½¿ï½½ï¾†ç®ªï¾†é›ï¾†æª€ï¿½ï½¿ï½½iï¾…ï¿½ï¾ƒåŽ„ï½¿ï½½çª¶æ™¢ï½¿ï½½jï¾…ï½½dçª¶ç½µ(" +
-		// (i+2) + "çª¶å‡ªï¿½ï½¡çª¶ç¦¿ï¿½)");
-		//
-		// workbook.setSheetOrder("KSC-S-25_2 ï¾†æŠµï½¿ï½½ï¾†ç®ªï¾†é›ï¾†æª€ï¿½ï½¿ï½½iï¾…ï¿½ï¾ƒåŽ„ï½¿ï½½çª¶æ™¢ï½¿ï½½jï¾…ï½½dçª¶ç½µ(" +
-		// (i+2) + "çª¶å‡ªï¿½ï½¡çª¶ç¦¿ï¿½)", i+1);
-		// XSSFSheet sheetI = workbook.getSheetAt(i);
-		// Cell cellPersonIncharge = sheetI.getRow(0).getCell(15);
-		// System.out.println(cellPersonIncharge.getStringCellValue());
-		// cellPersonIncharge.setCellValue("(TSDV)HungPN");
-		// Cell cellPakage = sheetI.getRow(1).getCell(8);
-		// cellPakage.setCellValue("jp.co.toshiba_sol.slim.ks.substituteinput");
-		// Cell cellDate = sheetI.getRow(0).getCell(13);
-		// cellDate.setCellValue(new Date());
-		// }
+		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch(); 
 
 		int numBerOfClass = countFilesInDirectory(prop.getProperty("package"));
 		System.out.println("number of class: ----------------->>>>>>>>>>>>" + numBerOfClass);
@@ -158,7 +107,7 @@ public class Check {
 		File dir = new File(prop.getProperty("package"));
 		File[] listFile = dir.listFiles();
 
-		// function description (sheet ãƒ¡ã‚½ãƒƒãƒ‰ï¼ˆé–¢æ•°ï¼‰ä»•æ§˜)
+		// function description  
 		functionDescription(prop.getProperty("package"), listFile);
 
 		FileOutputStream output_file = new FileOutputStream(new File(FILE_NAME));
@@ -175,9 +124,9 @@ public class Check {
 		ArrayList<XSSFSheet> clonedSheets = new ArrayList();
 		for (int i = 0; i < listFunction.size(); i++) {
 			XSSFSheet cloned = workbook.cloneSheet(1 + listFunction.size() + 1,
-					prop.getProperty("screenID") + "_3ãƒ¡ã‚½ãƒƒãƒ‰ãƒ­ã‚¸ãƒƒã‚¯å›³(" + (i + 1) + "æžšç›®)");
+					prop.getProperty("screenID") + "_3ƒƒ\ƒbƒhƒƒWƒbƒN}(" + (i + 1) + "–‡–Ú)");
 			XSSFSheet cloned2 = workbook.cloneSheet(1 + listFunction.size() + 2,
-					prop.getProperty("screenID") + "_3ãƒ¡ã‚½ãƒƒãƒ‰ãƒ­ã‚¸ãƒƒã‚¯èª¬æ˜Ž(" + (i + 1) + "æžšç›®)");
+					prop.getProperty("screenID") + "_3ƒƒ\ƒbƒhƒƒWƒbƒNà–¾(" + (i + 1) + "–‡–Ú)");
 			clonedSheets.add(cloned);
 			clonedSheets.add(cloned2);
 		}
@@ -191,13 +140,13 @@ public class Check {
 			clonedSheet.getRow(0).getCell(40).setCellValue(prop.getProperty("pic"));
 			clonedSheet.getRow(0).getCell(35).setCellValue(prop.getProperty("date"));
 			String functionNameArr[] = listFunction.get(i/2).split("\\.");
-			String functionName = functionNameArr[1] + "." + functionNameArr[0] + "()é–¢æ•°";
+			String functionName = functionNameArr[1] + "." + functionNameArr[0] + "()ŠÖ”";
 			clonedSheet.getRow(1).getCell(22).setCellValue(functionName);
 			clonedSheet.getRow(1).getCell(14).setCellValue(prop.getProperty("screenID"));
 			if (i%2==0) {
-				clonedSheet.getRow(1).getCell(5).setCellValue(prop.getProperty("screenID") + "_3ãƒ¡ã‚½ãƒƒãƒ‰ãƒ­ã‚¸ãƒƒã‚¯å›³");
+				clonedSheet.getRow(1).getCell(5).setCellValue(prop.getProperty("screenID") + "_3ƒƒ\ƒbƒhƒƒWƒbƒN}");
 			} else {
-				clonedSheet.getRow(1).getCell(5).setCellValue(prop.getProperty("screenID") + "_3ãƒ¡ã‚½ãƒƒãƒ‰ãƒ­ã‚¸ãƒƒã‚¯èª¬æ˜Ž");
+				clonedSheet.getRow(1).getCell(5).setCellValue(prop.getProperty("screenID") + "_3ƒƒ\ƒbƒhƒƒWƒbƒNà–¾");
 			}
 			
 		}
@@ -256,13 +205,13 @@ public class Check {
 
 		for (int i = 0; i < functionList.size(); i++) {
 
-			String sheetName = prop.getProperty("screenID") + "_2 ãƒ¡ã‚½ãƒƒãƒ‰ï¼ˆé–¢æ•°ï¼‰ä»•æ§˜(" + (i + 1) + "æžšç›®)";
+			String sheetName = prop.getProperty("screenID") + "_2 ƒƒ\ƒbƒhiŠÖ”jŽd—l(" + (i + 1) + "–‡–Ú)";
 			XSSFSheet clonedSheet = workbook.cloneSheet(1, sheetName);
 			workbook.setSheetOrder(sheetName, i + 1);
 			clonedSheet.getRow(0).getCell(15).setCellValue(prop.getProperty("pic"));
 			clonedSheet.getRow(0).getCell(13).setCellType(CellType.STRING);
 			clonedSheet.getRow(0).getCell(13).setCellValue(prop.getProperty("date"));
-			String packageString = prop.getProperty("package").split(prop.getProperty("JavaSource"))[1];
+			String packageString = prop.getProperty("package").split(prop.getProperty("javaSource"))[1];  // JavaSource
 			packageString = packageString.replaceAll("\\\\", "\\.");
 			packageString = packageString.substring(1, packageString.length());
 			// package name
@@ -319,7 +268,7 @@ public class Check {
 				fileType = "JSP";
 			}
 			sheet0.getRow(4 + i).getCell(5).setCellValue(fileType);
-			sheet0.getRow(4 + i).getCell(6).setCellValue("å®Ÿè£…ãƒ•ã‚¡ã‚¤ãƒ«");
+			sheet0.getRow(4 + i).getCell(6).setCellValue("ŽÀ‘•ƒtƒ@ƒCƒ‹");
 		} // end for loop
 
 		for (int i = classes.length; i < 100; i++) {

@@ -1,0 +1,8 @@
+﻿get parameter from HTTP request
+openfile
+if the file is not empty
+read the file
+catch exception
+. Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd asdl;j falsdf alsdjk faslkjdf f
+. Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd asdl;j falsdf alsdjk faslkjdf f
+. Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd asdl;j falsdf alsdjk faslkjdf f

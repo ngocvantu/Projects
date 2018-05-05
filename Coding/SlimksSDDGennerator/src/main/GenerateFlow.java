@@ -56,6 +56,7 @@ public class GenerateFlow {
 	}
 
 	private final String FILE_NAME = prop.getProperty("fileNameFlow");
+	private final String STEP_FILE = prop.getProperty("stepFile");
 	private final int rowOffsetFirst = 1;
 	private final int numberOfRowEachTextBox = 2;
 	private final int rowSpace = 1;
@@ -78,21 +79,32 @@ public class GenerateFlow {
 		excelFile = new FileInputStream(new File(FILE_NAME));
 		workbook = new XSSFWorkbook(excelFile);
 		datatypeSheet = workbook.getSheetAt(0);
+		datatypeSheet = workbook.createSheet();
 		// datatypeSheet = workbook.createSheet("xin chao");
 		// datatypeSheet.setDefaultColumnWidth(3);
 		XSSFDrawing drawing = datatypeSheet.createDrawingPatriarch();
-		 for (int i = 0; i < 10; i++) {
+		BufferedReader bf = new BufferedReader(new FileReader(new File(STEP_FILE)));
 		
-		 XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0,  0, 0, 0, colStart, rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
-		 textBox1.setText(i + ". Create text box and insert to the , createalk asldjkfh alsjkdfh alksjd asdl;j falsdf alsdjk faslkjdf f");
-		 textBox1.setLineStyle(0);
-		 textBox1.setLineStyleColor(0, 0, 0);
-		 textBox1.setLineWidth(1.5);
-		 textBox1.setFillColor(255, 255, 255);
-		 textBox1.setWordWrap(true);
-		 textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
-		 textBox1.setBottomInset(0); // bottom margin (similar padding in HTMLL)
-		 textBox1.setTopInset(0);
+		ArrayList<String> lines = new ArrayList<String>();
+		String line = null;
+		while ((line = bf.readLine()) != null) {
+			lines.add(line);
+		}
+		
+		 for (int i = 0; i < lines.size(); i++) {
+			 
+			 String text = lines.get(i);
+		
+			 XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0,  0, 0, 0, colStart, rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
+			 textBox1.setText(i + ". " + text);
+			 textBox1.setLineStyle(0);
+			 textBox1.setLineStyleColor(0, 0, 0);
+			 textBox1.setLineWidth(1.5);
+			 textBox1.setFillColor(255, 255, 255);
+			 textBox1.setWordWrap(true);
+			 textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
+			 textBox1.setBottomInset(0); // bottom margin (similar padding in HTMLL)
+			 textBox1.setTopInset(0);
 		 }
 		
 		 XSSFSimpleShape simpleShape = drawing.createSimpleShape(new
@@ -126,6 +138,8 @@ public class GenerateFlow {
 //		 Cell cellDate = sheetI.getRow(0).getCell(13);
 //		 cellDate.setCellValue(new Date());
 //		 }
+		 
+		 bf.close();
  
 		FileOutputStream output_file = new FileOutputStream(new File(FILE_NAME));
 		workbook.write(output_file);
