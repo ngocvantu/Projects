@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.ShapeTypes;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xssf.usermodel.TextVerticalOverflow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
@@ -62,7 +63,7 @@ public class GenerateFlow {
 	private final int rowSpace = 1;
 
 	private int colStart = 2;
-	private int colEnd = 16;
+	private int colEnd = 8;
 
 	FileInputStream excelFile;
 	XSSFWorkbook workbook = new XSSFWorkbook(XSSFWorkbookType.XLSX);
@@ -93,8 +94,27 @@ public class GenerateFlow {
 		
 		 for (int i = 0; i < lines.size(); i++) {
 			 
-			 String text = lines.get(i);
-		
+			 XSSFSimpleShape simpleShape2 = drawing.createSimpleShape(new
+					 XSSFClientAnchor(3, 3, 3, 3, (colStart + colEnd)/2, i * (numberOfRowEachTextBox + rowSpace) , (colStart + colEnd)/2, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox - numberOfRowEachTextBox));
+					 simpleShape2.setShapeType(ShapeTypes.LINE);
+					 simpleShape2.setLineStyle(0);
+					 simpleShape2.setLineStyleColor(0, 0, 0);
+					 simpleShape2.setLineWidth(1.5);
+					 simpleShape2.setFillColor(0, 0, 0);
+			 
+			 String text = lines.get(i); 
+			 if (text.toUpperCase().startsWith("IF")) {
+				 XSSFSimpleShape simpleShape = drawing.createSimpleShape(new XSSFClientAnchor(0,  0, 0, 0, colStart, rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
+				 simpleShape.setShapeType(ShapeTypes.DIAMOND);
+				 simpleShape.setLineStyle(0);
+				 simpleShape.setLineStyleColor(0, 0, 0);
+				 simpleShape.setFillColor(255, 255, 255);
+				 simpleShape.setLineWidth(1.5);
+				 simpleShape.setVerticalAlignment(VerticalAlignment.CENTER);
+				 simpleShape.setText(i + ". " + text);
+			} else {
+				
+				
 			 XSSFTextBox textBox1 = drawing.createTextbox(new XSSFClientAnchor(0,  0, 0, 0, colStart, rowOffsetFirst + i * (numberOfRowEachTextBox + rowSpace), colEnd, rowOffsetFirst + i*rowSpace + (i+1)*numberOfRowEachTextBox));
 			 textBox1.setText(i + ". " + text);
 			 textBox1.setLineStyle(0);
@@ -102,42 +122,15 @@ public class GenerateFlow {
 			 textBox1.setLineWidth(1.5);
 			 textBox1.setFillColor(255, 255, 255);
 			 textBox1.setWordWrap(true);
+			 textBox1.setVerticalAlignment(VerticalAlignment.CENTER);
 			 textBox1.setTextVerticalOverflow(TextVerticalOverflow.ELLIPSIS);
 			 textBox1.setBottomInset(0); // bottom margin (similar padding in HTMLL)
 			 textBox1.setTopInset(0);
+			}
 		 }
-		
-		 XSSFSimpleShape simpleShape = drawing.createSimpleShape(new
-		 XSSFClientAnchor(3, 3, 3, 3, 4, 11, 6, 13));
-		 simpleShape.setShapeType(ShapeTypes.DIAMOND);
-		 simpleShape.setLineStyle(0);
-		 simpleShape.setLineStyleColor(0, 0, 0);
-		 simpleShape.setLineWidth(1.5);
-		// simpleShape.setFillColor(0, 0, 0);
-		//
-		 XSSFSimpleShape simpleShape2 = drawing.createSimpleShape(new
-		 XSSFClientAnchor(3, 3, 3, 3, 5, 3, 5, 4));
-		 simpleShape2.setShapeType(ShapeTypes.LINE);
-		 simpleShape2.setLineStyle(0);
-		 simpleShape2.setLineStyleColor(0, 0, 0);
-		 simpleShape2.setLineWidth(1.5);
-		 simpleShape2.setFillColor(0, 0, 0);
+		 
+		 
 
-//		 for (int i = 0; i < 5; i++) {
-//		 workbook.cloneSheet(0, "KSC-S-25_2 ��慣�ｿ�ｽ��ｮｪ��惚��ｪ�ｿｽ�ｿ�ｽi��ｿｽ��私�ｿ�ｽ遯ｶ譎｢�ｿ�ｽj��ｽｽd遯ｶ鄂ｵ(" +
-//		 (i+2) + "遯ｶ蜃ｪ�ｽ�｡遯ｶ遖ｿ�ｽ)");
-//		
-//		 workbook.setSheetOrder("KSC-S-25_2 ��慣�ｿ�ｽ��ｮｪ��惚��ｪ�ｿｽ�ｿ�ｽi��ｿｽ��私�ｿ�ｽ遯ｶ譎｢�ｿ�ｽj��ｽｽd遯ｶ鄂ｵ(" +
-//		 (i+2) + "遯ｶ蜃ｪ�ｽ�｡遯ｶ遖ｿ�ｽ)", i+1);
-//		 XSSFSheet sheetI = workbook.getSheetAt(i);
-//		 Cell cellPersonIncharge = sheetI.getRow(0).getCell(15);
-//		 System.out.println(cellPersonIncharge.getStringCellValue());
-//		 cellPersonIncharge.setCellValue("(TSDV)HungPN");
-//		 Cell cellPakage = sheetI.getRow(1).getCell(8);
-//		 cellPakage.setCellValue("jp.co.toshiba_sol.slim.ks.substituteinput");
-//		 Cell cellDate = sheetI.getRow(0).getCell(13);
-//		 cellDate.setCellValue(new Date());
-//		 }
 		 
 		 bf.close();
  
@@ -149,12 +142,6 @@ public class GenerateFlow {
 		Desktop desktop = Desktop.getDesktop();
 		desktop.open(new File(FILE_NAME));
 
-	}
- 
-
-	private int countFilesInDirectory(String directory) {
-		File dir = new File(directory);
-		return dir.list().length;
-	}
+	} 
 
 }
