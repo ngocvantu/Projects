@@ -54,8 +54,8 @@ public class MainClass {
 	// data in cell file
 	private static final String COLUMN_DATA = "D";
 	private static final String COLUMN_STATUS = "D";
-	private static final int ROWSTART = 110;
-	private static final int ROWEND = 210;
+	private static final int ROWSTART = 155;
+	private static final int ROWEND = 200;
 
 	// ACtion (retweet, follow kucoin)
 	private static final String ACTION = "RETWEET";
@@ -170,31 +170,31 @@ public class MainClass {
 	private void kucoinSecurity(String userString, WebDriver driver, int i, String twitterusername1, String email1) throws InterruptedException, IOException {
 		driver.get("https://www.kucoin.com/#/login");
 		System.out.println(email1);
-		WebElement checkBoc1 = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[1]/label/span/input"));
-		checkBoc1.click();
-		
-		WebElement checkBoc2 = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[2]/label/span/input"));
-		checkBoc2.click();
-		
-		WebElement checkBoc3 = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[3]/label/span/input"));
-		checkBoc3.click();
-		
-		WebElement checkBoc4 = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[4]/label/span/input"));
-		checkBoc4.click();
-		
-		WebElement checkBoc5 = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[5]/label/span/input"));
-		checkBoc5.click(); 
-		
-		Thread.sleep(1000);
-		
-		WebElement btnconfirm = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[3]/button"));
-		btnconfirm.click();
+//		WebElement checkBoc1 = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[1]/label/span/input"));
+//		checkBoc1.click();
+//		
+//		WebElement checkBoc2 = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[2]/label/span/input"));
+//		checkBoc2.click();
+//		
+//		WebElement checkBoc3 = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[3]/label/span/input"));
+//		checkBoc3.click();
+//		
+//		WebElement checkBoc4 = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[4]/label/span/input"));
+//		checkBoc4.click();
+//		
+//		WebElement checkBoc5 = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[1]/div[5]/label/span/input"));
+//		checkBoc5.click(); 
+//		
+//		Thread.sleep(1000);
+//		
+//		WebElement btnconfirm = driver
+//				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/div[3]/button"));
+//		btnconfirm.click();
 		 
 		
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -212,7 +212,7 @@ public class MainClass {
 		pass.sendKeys("Thongtinaz@12"); 
 		
 		WebElement btnLogin = driver
-				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/form/div[4]/div/div/button"));
+				.findElement(By.xpath("//*[@id=\"StyleRootContentWrap\"]/div/div/div/div[2]/div/form/div[4]/div/div/button"));
 		btnLogin.click();
 		  
 		
@@ -525,9 +525,9 @@ public class MainClass {
 			driver.navigate().to("https://twitter.com/kucoincom");
 			Thread.sleep(3000);
 			
-			if (driver.findElement(By.xpath( "//*[@id=\"stream-item-tweet-986248291573641216\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]")).isDisplayed()) {
+			if (driver.findElement(By.xpath( "//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]")).isDisplayed()) {
 				WebElement reTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-986248291573641216\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
 				reTweetIcon.click();
 				Thread.sleep(5000);
 				WebElement reTweetButton = driver.findElement(
@@ -535,11 +535,11 @@ public class MainClass {
 				reTweetButton.click();
 			} else {
 				WebElement unTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-986248291573641216\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[2]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[2]/div/span[1]"));
 				unTweetIcon.click();
 				Thread.sleep(2000);
 				WebElement reTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-986248291573641216\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
 				reTweetIcon.click();
 				Thread.sleep(5000);
 				WebElement reTweetButton = driver.findElement(

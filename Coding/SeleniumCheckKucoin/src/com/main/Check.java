@@ -38,14 +38,10 @@ public class Check {
 	Properties prop = new Properties();
 	InputStream input = null;
 	
-	{
-		
-		try {
-
+	{ 
+		try { 
 			input = new FileInputStream("config.properties");
-
 			prop.load(input);
-
 			System.out.println(prop.getProperty("fileName"));
 			System.out.println(prop.getProperty("pic"));
 			System.out.println(prop.getProperty("package"));
