@@ -6,6 +6,6 @@ public class StringStatic {
 	public static final String GOOGLE_ACCOUNT = "tonyjarrbk@gmail.com";
 	 
 	
-	public static final String FILE_NAME_REGISTER = "D:\\tempt\\registering.xlsx";
+	public static final String FILE_NAME_REGISTER = "E:\\GoogleDriver\\BTC\\registering.xlsx";
 	 
 }
