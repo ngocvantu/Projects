@@ -298,7 +298,7 @@ public class Register {
 				"//*[@id=\"page-container\"]/div[1]/div[1]/div/div[2]/span/a");
 		String myUsername = usernameLink.getText();
 		System.out.println(myUsername);
-
+ 
 		driver.get("https://twitter.com/kucoincom");
 
 		// folow button
