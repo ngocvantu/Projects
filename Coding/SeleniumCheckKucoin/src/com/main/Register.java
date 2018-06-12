@@ -69,21 +69,10 @@ public class Register {
 		WebDriver driver;
 		
 		
-		ChromeOptions options = new ChromeOptions();
-		// FirefoxOptions options = new FirefoxOptions();
-		options.addArguments("disable-infobars");
-		options.addArguments("--start-maximized");
-		options.setExperimentalOption("useAutomationExtension", false);
-		options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
-
-		Map<String, Object> prefs = new HashMap<String, Object>();
-		prefs.put("credentials_enable_service", false);
-		options.setExperimentalOption("prefs", prefs);
-		driver = new ChromeDriver(options); 
-		Thread.sleep(500);
+		
 		  
 		try {
-			excelFile = new FileInputStream(new File(StringStatic.FILE_NAME_GOOGLE_FORM));
+			excelFile = new FileInputStream(new File(StringStatic.FILE_NAME_REGISTER));
 			workbook = new XSSFWorkbook(excelFile);
 			datatypeSheet = workbook.getSheetAt(0);
 			for (int i = 1; i < 10; i++) {
@@ -100,18 +89,22 @@ public class Register {
 					
 					Cell twitterUsernameCell = datatypeSheet.getRow(i).getCell(0);
 					String twitterUsername = twitterUsernameCell.getStringCellValue().trim();
+					 
+					Thread.sleep(1000);
 					
-					Cell cell = datatypeSheet.getRow(i).getCell(2);
-					String email = cell.getStringCellValue().trim();
-					Cell yourNameCell = datatypeSheet.getRow(i).getCell(4);
-					String yourName = yourNameCell.getStringCellValue().trim();
-					Cell yourTwitterAccountCell = datatypeSheet.getRow(i).getCell(7);
-					String yourTwitterAccount = yourTwitterAccountCell.getStringCellValue().trim();
-					System.out.println("email: " + email);
-					System.out.println("yourName: " + yourName);
-					System.out.println("yourTwitterAccount: " + yourTwitterAccount);
-					Thread.sleep(3000);
-					fillForm(driver, email, yourName, yourTwitterAccount, twitterUsername, i, j);
+					ChromeOptions options = new ChromeOptions();
+					// FirefoxOptions options = new FirefoxOptions();
+					options.addArguments("disable-infobars");
+					options.addArguments("--start-maximized");
+					options.setExperimentalOption("useAutomationExtension", false);
+					options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
+
+					Map<String, Object> prefs = new HashMap<String, Object>();
+					prefs.put("credentials_enable_service", false);
+					options.setExperimentalOption("prefs", prefs);
+					driver = new ChromeDriver(options); 
+					Thread.sleep(500);
+					registerTwitter(driver, twitterUsername, i, j);
 				}
 				
 			} 
@@ -120,8 +113,6 @@ public class Register {
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-			driver.switchTo().window(tabs.get(0));
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,10 +121,7 @@ public class Register {
 		
 	}
 
-	private void fillForm(WebDriver driver, String email, String yourName, String yourTwitterAccount, String twitterUsername, int i, int j) throws IOException, AWTException, InterruptedException { 
-		if (!email.contains("yahoo")) {
-			return;
-		}
+	private void registerTwitter(WebDriver driver, String twitterUsername, int i, int j) throws IOException, AWTException, InterruptedException { 
 		 
 		
 		WebDriverWait wait = new WebDriverWait(driver, 30000);
@@ -160,20 +148,20 @@ public class Register {
 		//Username
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"login-signin\"]")));
 		driver.findElement(By.xpath("//*[@id=\"login-username\"]")).clear();
-		driver.findElement(By.xpath("//*[@id=\"login-username\"]")).sendKeys(email);
+		driver.findElement(By.xpath("//*[@id=\"login-username\"]")).sendKeys(twitterUsername);
 		driver.findElement(By.xpath("//*[@id=\"login-signin\"]")).click();
 		
-		// Password
+		// Phone
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"login-passwd\"]")));
 		driver.findElement(By.xpath("//*[@id=\"login-passwd\"]")).clear();
-		driver.findElement(By.xpath("//*[@id=\"login-passwd\"]")).sendKeys("Thongtinaz@12");
+		driver.findElement(By.xpath("//*[@id=\"login-passwd\"]")).sendKeys(PHONE);
 		driver.findElement(By.xpath("//*[@id=\"login-signin\"]")).click();
 		 
 		
 		// Take screen shot
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try { 
-			FileUtils.copyFile(src, new File("D:/Temp/BTC/TEST_TWITTER_USER_LINK/" + email + ".png"));
+			FileUtils.copyFile(src, new File("D:/Temp/BTC/TEST_TWITTER_USER_LINK/" + twitterUsername + ".png"));
 		} catch (ElementNotVisibleException e) {
 			System.out.println(e.getMessage());
 			System.out.println("jkgffg");
@@ -181,11 +169,11 @@ public class Register {
 		}
 		
 		// Write to file 
-		FileOutputStream output_file = new FileOutputStream(new File(StringStatic.FILE_NAME_GOOGLE_FORM));
+		FileOutputStream output_file = new FileOutputStream(new File(StringStatic.FILE_NAME_REGISTER));
 		workbook.write(output_file);
 		output_file.close();
 		   
-		System.out.println("success >>>>>>>>>>>>>>>>>>> " + email);
+		System.out.println("success >>>>>>>>>>>>>>>>>>> " + twitterUsername);
 	}
 
 }
