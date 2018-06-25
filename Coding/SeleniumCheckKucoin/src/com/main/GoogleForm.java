@@ -41,8 +41,8 @@ public class GoogleForm {
 	XSSFWorkbook workbook;
 	XSSFSheet datatypeSheet;
 	
-	private static final int ROWSTART = 156;
-	private static final int ROWEND = 165;
+	private static final int ROWSTART = 2;
+	private static final int ROWEND = 50;
 
 	public static void main(String[] args) { 
 
@@ -74,29 +74,7 @@ public class GoogleForm {
 		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("credentials_enable_service", false);
 		options.setExperimentalOption("prefs", prefs);
-		driver = new ChromeDriver(options);
-		WebDriverWait wait = new WebDriverWait(driver, 30);
 		
-		driver.get(StringStatic.FILE_NAME_GOOGLE_FORM_LINK); 
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]")));
-		WebElement dangNhapButton = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]"));
-		dangNhapButton.click(); 
-		
-		// next button to be clickable
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"identifierNext\"]")));
-		WebElement emailInput = driver.findElement(By.xpath("//*[@id=\"identifierId\"]"));
-		emailInput.sendKeys(StringStatic.GOOGLE_ACCOUNT);  
-		driver.findElement(By.xpath("//*[@id=\"identifierNext\"]")).click();
-		
-		// next button to be clickable
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"passwordNext\"]")));
-		WebElement pass = driver.findElement(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input"));
-		pass.sendKeys("Thongtinaz@12");  
-		Thread.sleep(500);
-		driver.findElement(By.xpath("//*[@id=\"passwordNext\"]")).click();
-		driver.get(StringStatic.FILE_NAME_GOOGLE_FORM_LINK); 
-		 
-		Thread.sleep(1000);
 		 
 
 		try {
@@ -128,17 +106,38 @@ public class GoogleForm {
 					System.out.println("yourName: " + yourName);
 					System.out.println("yourTwitterAccount: " + yourTwitterAccount);
 					Thread.sleep(3000);
+					driver = new ChromeDriver(options);
+					WebDriverWait wait = new WebDriverWait(driver, 30);
+					
+					driver.get(StringStatic.FILE_NAME_GOOGLE_FORM_LINK); 
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]")));
+					WebElement dangNhapButton = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]"));
+					dangNhapButton.click(); 
+					
+					// next button to be clickable
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"identifierNext\"]")));
+					WebElement emailInput = driver.findElement(By.xpath("//*[@id=\"identifierId\"]"));
+					emailInput.sendKeys(StringStatic.GOOGLE_ACCOUNT);  
+					driver.findElement(By.xpath("//*[@id=\"identifierNext\"]")).click();
+					
+					// next button to be clickable
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"passwordNext\"]")));
+					WebElement pass = driver.findElement(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input"));
+					pass.sendKeys("Thongtinaz@12");  
+					Thread.sleep(500);
+					driver.findElement(By.xpath("//*[@id=\"passwordNext\"]")).click();
+					driver.get(StringStatic.FILE_NAME_GOOGLE_FORM_LINK); 
+					 
+					Thread.sleep(1000);
 					fillForm(driver, email, yourName, yourTwitterAccount, twitterUsername, i, j);
+					driver.close();
 				}
 				
 			} 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-			driver.switchTo().window(tabs.get(0));
+		} catch (IOException e) { 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,7 +195,7 @@ public class GoogleForm {
 		r.mousePress(InputEvent.BUTTON1_MASK);
 		r.mouseRelease(InputEvent.BUTTON1_MASK);
 		
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		
 		r.keyPress(KeyEvent.VK_CONTROL);
 		r.keyPress(KeyEvent.VK_V);

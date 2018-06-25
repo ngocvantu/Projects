@@ -38,8 +38,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.gargoylesoftware.htmlunit.WebWindowListener;
 
 public class MainClass {
-	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok.xlsx";
-//	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok-form.xlsx";
+//	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok.xlsx";
+	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok-form.xlsx";
 //	private static final String FILE_NAME = "E:\\GoogleDriver\\BTC\\taikhoan_ok-security.xlsx";
 	 
 //	private static final String FILE_NAME = "C:\\Users\\tunv\\Google Drive\\BTC\\taikhoan_ok-getname.xlsx";
@@ -54,7 +54,7 @@ public class MainClass {
 	// data in cell file
 	private static final String COLUMN_DATA = "D";
 	private static final String COLUMN_STATUS = "D";
-	private static final int ROWSTART = 155;
+	private static final int ROWSTART = 2;
 	private static final int ROWEND = 200;
 
 	// ACtion (retweet, follow kucoin)
@@ -511,7 +511,15 @@ public class MainClass {
 			if ("btckhongphaila1".equals(usernamestring) || 
 					"tatcadaunha1".equals(usernamestring) || 
 					"nenphaicogang1".equals(usernamestring) ||
-					"hochanhvask1".equals(usernamestring)) {
+					"hochanhvask1".equals(usernamestring) ||
+							"neunhumangay1".equals(usernamestring) ||
+							"naodohopthu1".equals(usernamestring) ||
+							"denkhongco1".equals(usernamestring) ||
+							"motcaimailnao1".equals(usernamestring) ||
+							"cathiphailsao1".equals(usernamestring) ||
+							"dklichnghi1".equals(usernamestring
+							
+							)) {
 				pass.sendKeys("thongtin27592");
 			} else {
 				pass.sendKeys(MAT_KHAU);
@@ -525,25 +533,25 @@ public class MainClass {
 			driver.navigate().to("https://twitter.com/kucoincom");
 			Thread.sleep(3000);
 			
-			if (driver.findElement(By.xpath( "//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]")).isDisplayed()) {
+			if (driver.findElement(By.xpath( "//*[@id=\"stream-item-tweet-1007265076632416259\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]")).isDisplayed()) {
 				WebElement reTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1007265076632416259\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
 				reTweetIcon.click();
 				Thread.sleep(5000);
 				WebElement reTweetButton = driver.findElement(
-						By.xpath("/html/body/div[24]/div/div[2]/form/div[2]/div[3]/button"));
+						By.xpath("//*[@id=\"retweet-tweet-dialog-dialog\"]/div[2]/form/div[2]/div[3]/button"));
 				reTweetButton.click();
 			} else {
 				WebElement unTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[2]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1007265076632416259\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[2]/div/span[1]"));
 				unTweetIcon.click();
 				Thread.sleep(2000);
 				WebElement reTweetIcon = driver.findElement(By.xpath(
-						"//*[@id=\"stream-item-tweet-1002188699499618304\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
+						"//*[@id=\"stream-item-tweet-1007265076632416259\"]/div[1]/div[2]/div[4]/div[2]/div[2]/button[1]/div/span[1]"));
 				reTweetIcon.click();
 				Thread.sleep(5000);
 				WebElement reTweetButton = driver.findElement(
-						By.xpath("/html/body/div[24]/div/div[2]/form/div[2]/div[3]/button")); 
+						By.xpath("//*[@id=\"retweet-tweet-dialog-dialog\"]/div[2]/form/div[2]/div[3]/button"));
 				reTweetButton.click();
 			}
 			
@@ -557,7 +565,7 @@ public class MainClass {
 			JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
 			Random rand = new Random();
 
-			int n = rand.nextInt((250 - 200) + 1) + 200;
+			int n = rand.nextInt((260 - 230) + 1) + 230;
 			jsExecutor.executeScript("scroll(0, " + n + ");");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 

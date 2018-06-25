@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -47,11 +48,13 @@ public class Register {
 	XSSFWorkbook workbook;
 	XSSFSheet datatypeSheet;
 
-	private static final int ROWSTART = 2;
-	private static final int ROWEND = 10;
-	private static final String PHONE = "926167397";
+	private static final int ROWSTART = 12;
+	private static final int ROWEND = 14;
+	private static final String PHONE = "923806387";
 	private static final String LINK = "https://twitter.com/i/flow/signup";
 	private static final String LINK_YAHOO = "https://login.yahoo.com/account/create";
+	public static final String LINK_KUCOIN_REGISTER = "https://www.kucoin.com/#/signup";
+	String pass = "Thongtinaz@12";
 
 	public static void main(String[] args) {
 
@@ -83,7 +86,8 @@ public class Register {
 			for (int i = ROWSTART - 1; i <= ROWEND - 1; i++) {
 
 				Cell cellStatus = datatypeSheet.getRow(i).getCell(3);
-				if (cellStatus.getNumericCellValue() != 2) {
+				Cell cellOK = datatypeSheet.getRow(i).getCell(8);
+				if (cellStatus.getNumericCellValue() != 2 && !cellOK.getStringCellValue().equals("OK")) {
 					j++;
 
 					Cell twitterUsernameCell = datatypeSheet.getRow(i).getCell(0);
@@ -103,8 +107,10 @@ public class Register {
 					options.setExperimentalOption("prefs", prefs);
 					driver = new ChromeDriver(options);
 					Thread.sleep(500);
-					// registerTwitter(driver, twitterUsername, i, j);
+					registerTwitter(driver, twitterUsername, i, j);
 					registerYahoo(driver, twitterUsername, i, j);
+					String yahooEmail = datatypeSheet.getRow(i).getCell(2).getStringCellValue();
+					registerKucoin(driver, yahooEmail, i, j);
 				}
 
 			}
@@ -120,8 +126,63 @@ public class Register {
 
 	}
 
-	private void registerYahoo(WebDriver driver, String twitterUsername, int i, int j)
+	private void registerKucoin(WebDriver driver, String yahooemail, int i, int j) throws InterruptedException, IOException { 
+		WebDriverWait wait = new WebDriverWait(driver, 30000);
+
+		((JavascriptExecutor) driver).executeScript("window.open('" + LINK_KUCOIN_REGISTER + "', '_blank')");
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+
+		// close some tab
+
+		if (tabs.size() > 10) {
+			for (int k = 0; k < 6; k++) {
+				ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
+				driver.switchTo().window(tabs2.get(tabs2.size() - 2));
+				((JavascriptExecutor) driver).executeScript("window.close()");
+			}
+		}
+
+		driver.switchTo().window(tabs.get(tabs.size() - 1));
+		Thread.sleep(1000);
+
+		 
+//		WebElement checkbox = waitForElement(driver, wait, "//*[@id=\"StyleRootContentWrap\"]/div/div/div[2]/div[2]/div/p[1]/label/span[1]/input");
+//		checkbox.sendKeys(Keys.SPACE);
+		WebElement next = waitForElement(driver, wait, "//*[@id=\"StyleRootContentWrap\"]/div/div/div[2]/div[2]/div/p[2]/button");
+		next.click(); 
+		
+		WebElement email = waitForElement(driver, wait, "//*[@id=\"email\"]");
+		email.clear();
+		email.sendKeys(yahooemail);
+		
+		WebElement pass = waitForElement(driver, wait, "//*[@id=\"password\"]");
+		pass.clear();
+		pass.sendKeys(this.pass);
+		
+		WebElement pass2 = waitForElement(driver, wait, "//*[@id=\"confirm\"]");
+		pass2.clear();
+		pass2.sendKeys(this.pass);
+		
+		Thread.sleep(1000);
+		
+		WebElement next2 = waitForElement(driver, wait, "//*[@id=\"StyleRootContentWrap\"]/div/div/div[2]/div[2]/div/form/div[6]/div/div/button");
+		next2.click(); 
+		
+		WebElement resendButton = waitForElement(driver, wait, "//*[@id=\"StyleRootContentWrap\"]/div/div/div[2]/div[2]/div/p[2]/button");
+		// Write to file
+		FileOutputStream output_file = new FileOutputStream(new File(StringStatic.FILE_NAME_REGISTER));
+		Cell cell0 = datatypeSheet.getRow(i).getCell(8);
+		cell0.setCellValue("OK");
+		workbook.write(output_file);
+		output_file.close();
+		
+		System.out.println("success kucoin >>>>>>>>>>>>>> " + yahooemail);
+	}
+
+	private String registerYahoo(WebDriver driver, String twitterUsername, int i, int j)
 			throws InterruptedException, IOException {
+		Random rand = new Random();
+		int  n = rand.nextInt(200) + 20;
 		WebDriverWait wait = new WebDriverWait(driver, 30000);
 
 		((JavascriptExecutor) driver).executeScript("window.open('" + LINK_YAHOO + "', '_blank')");
@@ -150,7 +211,7 @@ public class Register {
 
 		WebElement email = waitForElement(driver, wait, "//*[@id=\"usernamereg-yid\"]");
 		email.clear();
-		email.sendKeys(twitterUsername);
+		email.sendKeys(twitterUsername + n);
 
 		WebElement pass = waitForElement(driver, wait, "//*[@id=\"usernamereg-password\"]");
 		pass.clear();
@@ -183,6 +244,8 @@ public class Register {
 		WebElement tieptuc = waitForElement(driver, wait, "//*[@id=\"account-attributes-challenge\"]/form/div/div[3]/button");
 		tieptuc.click();
 		 
+		Thread.sleep(2000);
+		  
 
 		// Take screen shot
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -197,11 +260,12 @@ public class Register {
 		// Write to file
 		FileOutputStream output_file = new FileOutputStream(new File(StringStatic.FILE_NAME_REGISTER));
 		Cell cell0 = datatypeSheet.getRow(i).getCell(2);
-		cell0.setCellValue(twitterUsername + "@yahoo.com");
+		cell0.setCellValue(twitterUsername + n + "@yahoo.com");
 		workbook.write(output_file);
 		output_file.close();
-
-		System.out.println("success >>>>>>>>>>>>>>>>>>> " + twitterUsername);
+		
+		System.out.println("success yahoo >>>>>>>>>>>>>> " + twitterUsername);
+		return twitterUsername + n + "@yahoo.com";
 
 	}
 
